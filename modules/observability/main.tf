@@ -120,7 +120,60 @@ resource "aws_cloudwatch_dashboard" "main" {
 
   dashboard_body = jsonencode({
     widgets = [
-      
+      {
+        type   = "metric"
+        x      = 0
+        y      = 0
+        width  = 8
+        height = 6
+        properties = {
+          title   = "Request Count"
+          view    = "timeSeries"
+          stacked = false
+          metrics = [
+            ["AWS/ApplicationELB", "RequestCount",
+              "LoadBalancer", var.alb_arn_suffix,
+              { stat = "Sum", period = 60 }]
+          ]
+          region = var.aws_region
+        }
+      },
+      {
+        type   = "metric"
+        x      = 8
+        y      = 0
+        width  = 8
+        height = 6
+        properties = {
+          title   = "HTTP 5xx Errors"
+          view    = "timeSeries"
+          stacked = false
+          metrics = [
+            ["AWS/ApplicationELB", "HTTPCode_Target_5XX_Count",
+              "LoadBalancer", var.alb_arn_suffix,
+              { stat = "Sum", period = 60, color = "#d62728" }]
+          ]
+          region = var.aws_region
+        }
+      },
+      {
+        type   = "metric"
+        x      = 0
+        y      = 6
+        width  = 8
+        height = 6
+        properties = {
+          title   = "ELB Target Response Time"
+          view    = "timeSeries"
+          stacked = false
+          metrics = [
+            ["AWS/ApplicationELB", "TargetResponseTime",
+              "LoadBalancer", var.alb_arn_suffix,
+              { stat = "p90", period = 60, color = "#1f77b4" }]
+          ]
+          region = var.aws_region
+        }
+      }
     ]
   })
 }
