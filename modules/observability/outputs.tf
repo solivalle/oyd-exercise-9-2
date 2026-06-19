@@ -21,3 +21,8 @@ output "estimated_charges_alarm_arn" {
   description = "ARN of the EstimatedCharges billing alarm. Referenced by the CloudWatch dashboard alarm widget."
   value       = aws_cloudwatch_metric_alarm.estimated_charges.arn
 }
+
+output "dashboard_url" {
+  description = "Direct link to the CloudWatch dashboard"
+  value       = "https://${var.aws_region}.console.aws.amazon.com/cloudwatch/home?region=${var.aws_region}#dashboards:name=${aws_cloudwatch_dashboard.main.dashboard_name}"
+}
