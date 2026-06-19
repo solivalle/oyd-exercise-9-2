@@ -133,7 +133,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             ["AWS/ApplicationELB", "RequestCount",
               "LoadBalancer", var.alb_arn_suffix,
-              { stat = "Sum", period = 60 }]
+            { stat = "Sum", period = 60 }]
           ]
           region = var.aws_region
         }
@@ -151,7 +151,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             ["AWS/ApplicationELB", "HTTPCode_Target_5XX_Count",
               "LoadBalancer", var.alb_arn_suffix,
-              { stat = "Sum", period = 60, color = "#d62728" }]
+            { stat = "Sum", period = 60, color = "#d62728" }]
           ]
           region = var.aws_region
         }
@@ -169,7 +169,7 @@ resource "aws_cloudwatch_dashboard" "main" {
           metrics = [
             ["AWS/ApplicationELB", "TargetResponseTime",
               "LoadBalancer", var.alb_arn_suffix,
-              { stat = "p90", period = 60, color = "#1f77b4" }]
+            { stat = "p90", period = 60, color = "#1f77b4" }]
           ]
           region = var.aws_region
         }
